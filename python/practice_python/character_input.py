@@ -9,14 +9,25 @@
     2. Manipulating strings (string concatenation)
 """
 
+import datetime
+
 
 def express_when_100():
     name = input("Give me your name: ")
     age = int(input("Give me your age: "))
-    delta = 100 - age
-    current_year = 2023
+    current_year = datetime.datetime.now().year
+    year = current_year + (100 - age)
 
-    print(f"hey {name} you will 100 years in {current_year+ delta}")
+    print(f"hey {name}, you will be 100 years old in the year {year}")
 
 
 express_when_100()
+
+
+"""
+  OFFICIAL SOLUTION
+  name = input("What is your name: ")
+  age = int(input("How old are you: "))
+  year = 2014 - age + 100
+  print(name + ", you will be 100 years old in the year " + str(year))
+"""
