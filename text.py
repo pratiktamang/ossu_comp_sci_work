@@ -99,22 +99,84 @@ HeLlO
 
 return the index_placeholder
 
-
-
-
-
 """
 
 
-def capital_indexes(word):
-    index_placeholder = []
+# def capital_indexes(word):
+#     index_placeholder = []
 
-    for idx, char in enumerate(word):
-        if char == char.upper():
-            index_placeholder.append(idx)
+#     for idx, char in enumerate(word):
+#         if char == char.upper():
+#             index_placeholder.append(idx)
 
-    print(index_placeholder)
+#     print(index_placeholder)
 
 
-capital_indexes("amiN")
-capital_indexes("HeLlO")
+# capital_indexes("amiN")
+# capital_indexes("HeLlO")
+
+# cube = 8
+# found = False
+
+# for guess in range(abs(cube) +1):
+#     print(f"guess: {guess}")
+#     if guess **3 >= abs(cube):
+#         break
+#     if guess **3 != abs(cube):
+#         print(cube, "is not a perfect cube")
+#     else:
+#         if cube < 0:
+#             guess = -guess
+#         print(f"Cube root of {cube} is {guess}")
+
+# cube = 8
+# found = False  # Flag to check if a cube root is found
+
+# for guess in range(abs(cube) + 1):
+#     print(f"guess: {guess}")
+#     if guess ** 3 == abs(cube):
+#         found = True
+#         if cube < 0:
+#             guess = -guess
+#         print(f"Cube root of {cube} is {guess}")
+#         break
+#     elif guess ** 3 > abs(cube):
+#         break
+
+# if not found:
+#     print(f"{cube} is not a perfect cube")
+
+# # approximate solution
+# cube = 27
+# epsilon = 0.001
+# guess = 0.0
+# increment = 0.01
+# num_guesses = 0
+# while abs(guess ** 3 - cube) >= epsilon and guess <= cube:
+#     guess += increment
+#     num_guesses += 1
+# print("num_guesses =", num_guesses)
+# if abs(guess ** 3 - cube) >= epsilon:
+#     print("Failed on cube root of", cube)
+# else:
+#     print(guess, "is close to the cube root of", cube)
+
+# bisection search
+cube = 27
+epsilon = 0.01
+num_guesses = 0
+low = 0
+high = cube
+guess = (high + low) / 2.0
+
+while abs(guess ** 3 - cube) >= epsilon:
+    print("low =", low, "high =", high, "guess =", guess)
+    if guess ** 3 < cube:
+        low = guess
+    else:
+        high = guess
+    guess = (high + low)/2.0
+    num_guesses += 1
+
+print("num_guesses =", num_guesses)
+print(guess, "is close to the cube root of", cube)

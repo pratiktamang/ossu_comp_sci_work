@@ -43,7 +43,6 @@
 import unittest
 
 
-# def calculate_months_to_save(a, b, c):
 def calculate_months_to_save(annual_salary, portion_saved, total_cost):
     # for the test case, commenting out the user input
     # total_cost = input("Enter the cost of your dream home: ")
