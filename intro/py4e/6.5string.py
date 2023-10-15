@@ -8,6 +8,11 @@ text = "X-DSPAM-Confidence:    0.8475"
 # number_pos = text.find("0")
 # print(float(text[number_pos:]))
 
+# index = None
+# for char in text:
+#     if char.isdigit():
+#         index = text.index(char)
+#         break
 
 # number_pos = None
 # for idx, char in enumerate(text):
@@ -16,11 +21,16 @@ text = "X-DSPAM-Confidence:    0.8475"
 #         break
 # print(float(text[number_pos:]))
 
-index = None
-for char in text:
-    if char.isdigit():
-        index = text.index(char)
-        break
 
-extract_number = text[index:]
-print(float(extract_number))
+# extract_number = text[index:]
+# print(float(extract_number))
+
+
+def get_index(text):
+    for idx, char in enumerate(text):
+        if char.isdigit():
+            return idx
+
+
+idx = get_index(text)
+print(float(text[idx:]))
