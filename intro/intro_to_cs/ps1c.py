@@ -1,7 +1,7 @@
 """
     Part C: Finding the right amount to save away
 
-    In Part B, you had a chance to explore how both the percentage of your salary that you save each month 
+    In Part B, you had a chance to explore how both the percentage of your salary that you save each month
     and your annual raise affect how long it takes you to save for a down payment.  This is nice, but
     suppose you want to set a particular goal, e.g. to be able to afford the down payment in three years.
     How much should you save each month to achieve this?
@@ -9,22 +9,22 @@
     In this problem, you are going to write a program to answer that question.  To simplify things, assume:
 
         1. Your semi-­annual raise is .07 (7%)
-        2. Your investments have an annual return of 0.04 (4%)  
-        3. The down payment is 0.25 (25%) of the cost of the house 
+        2. Your investments have an annual return of 0.04 (4%)
+        3. The down payment is 0.25 (25%) of the cost of the house
         4. The cost of the house that you are saving for is $1M.
 
-    You are now going to try to find the best rate of savings to achieve a down payment on a $1M house in 
-    36 months. Since hitting this exactly is a challenge, we simply want your savings to be within $100 of 
-    the required down payment. 
+    You are now going to try to find the best rate of savings to achieve a down payment on a $1M house in
+    36 months. Since hitting this exactly is a challenge, we simply want your savings to be within $100 of
+    the required down payment.
 
     In ps1c.py, write a program to calculate the best savings rate, as a function of your starting salary.
 
-    You should use bisection search to help you do this efficiently. You should keep track of the number of 
+    You should use bisection search to help you do this efficiently. You should keep track of the number of
     steps it takes your bisections search to finish. You should be able to reuse some of the code you wrote
-    for part B in this problem.  
+    for part B in this problem.
 
     Because we are searching for a value that is in principle a float, we are going to limit ourselves to two
-    decimals of accuracy (i.e., we may want to save at 7.04% ­­ or 0.0704 in decimal – but we are not 
+    decimals of accuracy (i.e., we may want to save at 7.04% ­­ or 0.0704 in decimal – but we are not
     going to worry about the difference between 7.041% and 7.039%).  This means we can search for an
     integer between 0 and 10000 (using integer division), and then convert it to a decimal percentage
     (using float division) to use when we are calculating the current_savings after 36 months.
@@ -41,12 +41,13 @@
     Also keep in mind it may not be possible for to save a down payment in a year and a half for some salaries.
     In this case your function should notify the user that it is not possible to save for the down payment in 36 months with a print statement.
 
-    Please make your program print results in the format shown in the test cases below.   
+    Please make your program print results in the format shown in the test cases below.
 
     Note: There are multiple right ways to implement bisection search/number of steps so your
     results may not perfectly match those of the test case.
 """
 import unittest
+
 
 def calculate_savings_rate(starting_salary):
     starting_salary = float(starting_salary)
@@ -59,67 +60,104 @@ def calculate_savings_rate(starting_salary):
     low = 0
     high = 10000
     steps = 0
-    rate = (high + low) / 2.0  # Initial best guess
+    rate = (high + low) / 2.0 / 10000.0  # Initial best guess
+    epsilon = 100
 
-    # Loop until we find the best rate
     while True:
         steps += 1
         monthly_salary = starting_salary / 12
         current_savings = 0
-        rate_decimal = rate / 10000.0
-        
+
         # Loop through each month
         for month in range(1, months + 1):
             # Add monthly investment return
             current_savings += current_savings * (annual_return / 12)
             # Add monthly saved amount from salary
-            current_savings += monthly_salary * rate_decimal
-            # If semi-annual month, increase salary
+            current_savings += monthly_salary * rate
+
+            # increase salary on 6th, 12th, 18th etc month
             if month % 6 == 0:
                 monthly_salary += monthly_salary * semi_annual_raise
 
         # Check how close we are to down payment
-        if abs(current_savings - down_payment) <= 100:
-            print(f"Best savings rate: {rate_decimal}")
-            print(f"Steps in bisection search: {steps}")
+        if abs(current_savings - down_payment) <= epsilon:
             break
-        elif current_savings > down_payment + 100:
+        elif current_savings > down_payment + epsilon:
             high = rate
-        elif current_savings < down_payment - 100:
+        elif current_savings < down_payment - epsilon:
             low = rate
 
-        # If not possible
         if low == high:
-            print("It is not possible to pay the down payment in three years.")
+            print("It is not possible to pay the down payment in three years")
             break
 
-        # Next bisection step
         rate = (high + low) / 2.0
 
-    rounded_rate = round(rate/10000,4)
-    return rounded_rate
+    # return rate
+    print("------")
+    best_savings_rate = round(rate, 4)
+    print(f"Best savings rate: {best_savings_rate} %")
+    print(f"Bisect steps: {steps}")
+    print("------")
+    return best_savings_rate
 
+    # Loop until we find the best rate
+    # while True:
+    #     steps += 1
+    #     monthly_salary = starting_salary / 12
+    #     current_savings = 0
+    #     rate_decimal = rate / 10000.0
 
+    #     # Loop through each month
+    #     for month in range(1, months + 1):
+    #         # Add monthly investment return
+    #         current_savings += current_savings * (annual_return / 12)
+    #         # Add monthly saved amount from salary
+    #         current_savings += monthly_salary * rate_decimal
+    #         # If semi-annual month, increase salary, adding here gets salary increase gets added on 7th month, 13th etc
+    #         if month % 6 == 0:
+    #             monthly_salary += monthly_salary * semi_annual_raise
+
+    #     # Check how close we are to down payment
+    #     if abs(current_savings - down_payment) <= 100:
+    #         print(f"Best savings rate: {rate_decimal}")
+    #         print(f"Steps in bisection search: {steps}")
+    #         break
+    #     elif current_savings > down_payment + 100:
+    #         high = rate
+    #     elif current_savings < down_payment - 100:
+    #         low = rate
+
+    #     # If not possible
+    #     if low == high:
+    #         print("It is not possible to pay the down payment in three years.")
+    #         break
+
+    #     # Next bisection step
+    #     rate = (high + low) / 2.0
+
+    # rounded_rate = round(rate/10000,4)
+    # return rounded_rate
 
 
 class TestCalculateSavingsRate(unittest.TestCase):
 
     """
-       Test case 1 
-       Enter the starting salary: 150000
-       Best savings rate: 0.4411  
-       Steps in bisection search: 12 
-       Test Case 2 
-       >>>  
-       Enter the starting salary: 300000
-       Best savings rate: 0.2206 
-       Steps in bisection search: 9 
-       >>>
-       Test Case 3 
-       >>>  
-       Enter the starting salary: 10000
-       It is not possible to pay the down payment in three years.
-       >>>
+    Test case 1
+    Enter the starting salary: 150000
+    Best savings rate: 0.4411
+    Steps in bisection search: 12
+    Test Case 2
+    >>>
+    Enter the starting salary: 300000
+    Best savings rate: 0.2206
+    Steps in bisection search: 9
+    >>>
+    Test Case 3
+    >>>
+    Enter the starting salary: 10000
+    It is not possible to pay the down payment in three years.
+    >>>
     """
 
     def test_calculate_savings_rate_one(self):
