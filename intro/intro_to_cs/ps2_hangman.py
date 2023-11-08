@@ -200,7 +200,16 @@ def match_with_gaps(my_word, other_word):
         False otherwise:
     """
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    my_word = my_word.replace(" ", "")
+
+    if len(my_word) != len(other_word):
+        return False
+
+    for my_char, other_char in zip(my_word, other_word):
+        if my_char != "_" and my_char != other_char:
+            return False
+
+    return True
 
 
 def show_possible_matches(my_word):
@@ -214,20 +223,11 @@ def show_possible_matches(my_word):
 
     """
     possible_words = []
-    matching_words = []
     for word in wordlist:
-        if len(word) == len(my_word):
+        if match_with_gaps(my_word, word):
             possible_words.append(word)
 
-    for word in possible_words:
-        for i in range(len(word)):
-            if my_word[i] == "_":
-                continue
-            elif my_word[i] != word[i]:
-                break
-        else:
-            matching_words.append(word)
-    print(" ".join(matching_words))
+    print(" ".join(possible_words))
 
 
 def hangman_with_hints(secret_word):
