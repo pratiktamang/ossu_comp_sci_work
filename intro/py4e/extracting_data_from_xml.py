@@ -48,7 +48,6 @@ Python code:
 import urllib.request, urllib.parse, urllib.error
 import xml.etree.ElementTree as ET
 import ssl
-import pdb
 
 # serviceurl = "http://py4e-data.dr-chuck.net/comments_42.xml"
 serviceurl = "http://py4e-data.dr-chuck.net/comments_1903230.xml"
