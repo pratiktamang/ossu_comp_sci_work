@@ -19,7 +19,7 @@
 int main()
 {
     double nc;
-    
+
     for(nc=0; getchar() != EOF; ++nc)
     ;
     printf("%.0f\n", nc);
@@ -27,7 +27,7 @@ int main()
 }
 
 // the body of the for loop is empty, because all of the work
-// in the test and increment parts. Grammatical rules of C 
+// in the test and increment parts. Grammatical rules of C
 // require that a for statement have a body.
 // The isolated semicolon, called a null statement is there
 // to satisfy that requirement.
