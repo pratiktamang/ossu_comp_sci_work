@@ -49,7 +49,7 @@ SCRABBLE_LETTER_VALUES = {
 # Helper code
 # (you don't need to understand this helper code)
 
-WORDLIST_FILENAME = "words.txt"
+WORDLIST_FILENAME = "./words.txt"
 
 
 def load_words():
@@ -212,8 +212,12 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)
     returns: dictionary (string -> int)
     """
+    new_hand = hand.copy()
+    for char in word.lower():
+        if char in new_hand and new_hand[char] is not 0:
+            new_hand[char] -= 1 if new_hand.get(char, 0) else 0
 
-    pass  # TO DO... Remove this line when you implement this function
+    return new_hand
 
 
 #
@@ -230,8 +234,12 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
+    in_hand = False
+    if word in word_list:
+        for char in word:
+            in_hand = False if char not in word else True
 
-    pass  # TO DO... Remove this line when you implement this function
+    return in_hand
 
 
 #
