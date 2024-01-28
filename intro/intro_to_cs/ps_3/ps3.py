@@ -234,12 +234,18 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
-    in_hand = False
-    if word in word_list:
-        for char in word:
-            in_hand = False if char not in word else True
 
-    return in_hand
+    lower_word = word.lower()
+    hand_copy = hand.copy()
+
+    if lower_word in word_list:
+        for char in lower_word:
+            if hand_copy.get(char, 0) > 0:
+                hand_copy[char] -= 1
+            else:
+                return False
+
+        return True
 
 
 #
