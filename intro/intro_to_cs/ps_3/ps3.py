@@ -13,6 +13,7 @@ import string
 import pdb
 
 VOWELS = "aeiou"
+WILDCARD = "*"
 CONSONANTS = "bcdfghjklmnpqrstvwxyz"
 HAND_SIZE = 7
 
@@ -43,6 +44,7 @@ SCRABBLE_LETTER_VALUES = {
     "x": 8,
     "y": 4,
     "z": 10,
+    "*": 0,
 }
 
 # -----------------------------------
@@ -180,7 +182,9 @@ def deal_hand(n):
     hand = {}
     num_vowels = int(math.ceil(n / 3))
 
-    for i in range(num_vowels):
+    hand[WILDCARD] = 1
+
+    for i in range(num_vowels - 1):
         x = random.choice(VOWELS)
         hand[x] = hand.get(x, 0) + 1
 
@@ -214,7 +218,7 @@ def update_hand(hand, word):
     """
     new_hand = hand.copy()
     for char in word.lower():
-        if char in new_hand and new_hand[char] is not 0:
+        if char in new_hand and new_hand[char] != 0:
             new_hand[char] -= 1 if new_hand.get(char, 0) else 0
 
     return new_hand
@@ -238,14 +242,17 @@ def is_valid_word(word, hand, word_list):
     lower_word = word.lower()
     hand_copy = hand.copy()
 
-    if lower_word in word_list:
-        for char in lower_word:
-            if hand_copy.get(char, 0) > 0:
-                hand_copy[char] -= 1
-            else:
-                return False
+    if WILDCARD in lower_word:
+        return any(lower_word.replace(WILDCARD, char) in word_list for char in VOWELS)
+    else:
+        if lower_word in word_list:
+            for char in lower_word:
+                if hand_copy.get(char, 0) > 0:
+                    hand_copy[char] -= 1
+                else:
+                    return False
 
-        return True
+            return True
 
 
 #
@@ -402,5 +409,10 @@ def play_game(word_list):
 #
 if __name__ == "__main__":
     word_list = load_words()
-    play_game(word_list)
-    get_word_score("it", 7)
+    print(
+        is_valid_word(
+            "co*s", {"c": 1, "o": 1, "w": 1, "s": 1, "*": 1, "z": 1}, word_list
+        )
+    )
+    # play_game(word_list)
+    # get_word_score("it", 7)
