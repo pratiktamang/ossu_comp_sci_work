@@ -1,3 +1,4 @@
+# http://www.pythonchallenge.com/pc/def/ocr.html
 # find rare characters in this:
 
 str = """%%$@_$^__#)^)&!_+]!*@&^}@[@%]()%+$&[(_@%+%$*^@$^!+]!&_#)_*}{}}!}_]$[%}@[{_@#_^{*
