@@ -1259,11 +1259,6 @@ PBuijeoTSpsVLaOGuLVjMZXkBvVXwUuHfBihziiavGSYofPNeKsTXruMUumRRPQJzvSzJkKbtSipiqBd
 )
 
 
-# import re
-# print((re.findall("[^A-Z]+[A-Z]{3}([a-z])[A-Z]{3}[^A-Z]+", input_str)))
-import pdb
-
-
 def find_lower_surrounded_by_three_upper(data):
     res = ""
     data.replace("\\n", "")
