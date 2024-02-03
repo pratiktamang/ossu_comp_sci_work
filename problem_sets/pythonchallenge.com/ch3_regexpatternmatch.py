@@ -2,7 +2,72 @@
 """
     One small letter, surrounded by EXACTLY three big bodyguards on each of its sides.
 """
-input_str = """kAewtloYgcFQaJNhHVGxXDiQmzjfcpYbzxlWrVcqsmUbCunkfxZWDZjUZMiGqhRRiUvGmYmvnJIHEmbT
+
+
+def find_lower_surrounded_by_three_upper(data):
+    res = ""
+    data.replace("\\n", "")
+    for idx in range(4, len(data) - 4):
+        first = data[idx - 4]
+        last = data[idx + 4]
+        start = data[idx - 3 : idx]
+        middle = data[idx]
+        end = data[idx + 1 : idx + 4]
+
+        if (
+            first.islower()
+            and start.isupper()
+            and middle.islower()
+            and end.isupper()
+            and last.islower()
+        ):
+            res += middle
+
+    return res
+
+
+# => linkedlist
+# using regex
+# import re
+
+# def find_lower_surrounded_by_three_upper_regex(data):
+#     pattern = r'(?<=[a-z][A-Z]{3})[a-z](?=[A-Z]{3}[a-z])'
+#     return ''.join(re.findall(pattern, data))
+
+# list comprehension
+
+# def find_lower_surrounded_by_three_upper_list_comp(data):
+#     return "".join(
+#         data[i]
+#         for i in range(4, len(data) - 4)
+#         if data[i - 4].islower()
+#         and data[i - 3 : i].isupper()
+#         and data[i].islower()
+#         and data[i + 1 : i + 4].isupper()
+#         and data[i + 4].islower()
+#     )
+
+# Ruby
+# regex
+# def find_lower_surrounded_by_three_upper(data)
+#   data.scan(/(?<=[a-z][A-Z]{3})[a-z](?=[A-Z]{3}[a-z])/).join
+# end
+
+# enumerable
+
+# def find_lower_surrounded_by_three_upper_enum(data)
+#   result = ''
+#   data.chars.each_cons(9) do |chars|
+#     if chars[0].match(/[a-z]/) && chars[1..3].all? { |c| c.match(/[A-Z]/) } &&
+#        chars[4].match(/[a-z]/) && chars[5..7].all? { |c| c.match(/[A-Z]/) } &&
+#        chars[8].match(/[a-z]/)
+#       result += chars[4]
+#     end
+#   end
+#   result
+# end
+
+INPUT_STR = """kAewtloYgcFQaJNhHVGxXDiQmzjfcpYbzxlWrVcqsmUbCunkfxZWDZjUZMiGqhRRiUvGmYmvnJIHEmbT
 MUKLECKdCthezSYBpIElRnZugFAxDRtQPpyeCBgBfaRVvvguRXLvkAdLOeCKxsDUvBBCwdpMMWmuELeG
 ENihrpCLhujoBqPRDPvfzcwadMMMbkmkzCCzoTPfbRlzBqMblmxTxNniNoCufprWXxgHZpldkoLCrHJq
 vYuyJFCZtqXLhWiYzOXeglkzhVJIWmeUySGuFVmLTCyMshQtvZpPwuIbOHNoBauwvuJYCmqznOBgByPw
@@ -1259,68 +1324,4 @@ PBuijeoTSpsVLaOGuLVjMZXkBvVXwUuHfBihziiavGSYofPNeKsTXruMUumRRPQJzvSzJkKbtSipiqBd
 )
 
 
-def find_lower_surrounded_by_three_upper(data):
-    res = ""
-    data.replace("\\n", "")
-    for idx in range(4, len(data) - 4):
-        first = data[idx - 4]
-        last = data[idx + 4]
-        start = data[idx - 3 : idx]
-        middle = data[idx]
-        end = data[idx + 1 : idx + 4]
-
-        if (
-            first.islower()
-            and start.isupper()
-            and middle.islower()
-            and end.isupper()
-            and last.islower()
-        ):
-            res += middle
-
-    return res
-
-
-print(find_lower_surrounded_by_three_upper(input_str))
-# linkedlist
-
-
-# using regex
-# import re
-
-# def find_lower_surrounded_by_three_upper_regex(data):
-#     pattern = r'(?<=[a-z][A-Z]{3})[a-z](?=[A-Z]{3}[a-z])'
-#     return ''.join(re.findall(pattern, data))
-
-# list comprehension
-
-# def find_lower_surrounded_by_three_upper_list_comp(data):
-#     return "".join(
-#         data[i]
-#         for i in range(4, len(data) - 4)
-#         if data[i - 4].islower()
-#         and data[i - 3 : i].isupper()
-#         and data[i].islower()
-#         and data[i + 1 : i + 4].isupper()
-#         and data[i + 4].islower()
-#     )
-
-# Ruby
-# regex
-# def find_lower_surrounded_by_three_upper(data)
-#   data.scan(/(?<=[a-z][A-Z]{3})[a-z](?=[A-Z]{3}[a-z])/).join
-# end
-
-# enumerable
-
-# def find_lower_surrounded_by_three_upper_enum(data)
-#   result = ''
-#   data.chars.each_cons(9) do |chars|
-#     if chars[0].match(/[a-z]/) && chars[1..3].all? { |c| c.match(/[A-Z]/) } &&
-#        chars[4].match(/[a-z]/) && chars[5..7].all? { |c| c.match(/[A-Z]/) } &&
-#        chars[8].match(/[a-z]/)
-#       result += chars[4]
-#     end
-#   end
-#   result
-# end
+print(find_lower_surrounded_by_three_upper(INPUT_STR))

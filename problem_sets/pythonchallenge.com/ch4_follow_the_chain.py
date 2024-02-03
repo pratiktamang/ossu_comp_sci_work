@@ -1,6 +1,6 @@
 # import urllib.request
 
-# BASE_URL = "http://www.pythonchallenge.com/pc/def/linkedlist.php"
+# BASE_URL = "rhttp://www.pythonchallenge.com/pc/def/linkedlist.php"
 # NOTHING = "?nothing="
 # num = "12345"
 # progress = "."
