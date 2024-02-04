@@ -1,24 +1,4 @@
 # http://www.pythonchallenge.com/pc/def/channel.html
-
-import os
-import pdb
-
-# directory = "./ch6_unzip_files/Now There Are Pairs/"
-# comments = []
-
-# for filename in os.listdir(directory):
-#     file_path = os.path.join(directory, filename)
-#     if os.path.isfile(file_path):
-#         f = open(file_path, "r")
-#         line = f.readline()
-#         if not line.startswith("Next nothing is "):
-#             comments.append(line)
-#             print("-----")
-#             print(line)
-#             print("-----")
-# ans = zip(comments)
-# print(list(ans))
-
 import zipfile
 
 
@@ -55,4 +35,34 @@ hint()
 **                                                            **
 ****************************************************************
  **************************************************************
+"""
+
+"""
+
+RUBY
+
+require 'zip'
+
+def hint
+  comments = []
+  num = "90052"
+  zipped_file = Zip::File.open("./ch6_zip_file.zip")
+
+  while true
+    file = num + ".txt"
+    content = zipped_file.get_entry(file).get_input_stream.read
+    comments << zipped_file.get_entry(file).comment
+    if content.start_with?("Next nothing is ")
+      num = content.split(" ").last
+    else
+      break
+    end
+  end
+  puts comments.join
+end
+
+hint
+
+
+
 """
