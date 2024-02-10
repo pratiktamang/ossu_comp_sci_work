@@ -12,7 +12,8 @@ from PIL import Image
 # Open an image file
 img = Image.open("./Oxygen.png")
 # get just the row with gray colours
-gray_row = [img.getpixel((x, img.height / 2)) for x in range(img.width)]
+pixel = img.getpixel((x, img.height / 2))
+gray_row = [pixel for x in range(img.width)]
 # the color sizes are 7 pixels, manually counted.. although first one is 5
 # check every 7th item
 gray_row = gray_row[::7]
